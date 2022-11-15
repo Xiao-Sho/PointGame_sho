@@ -48,6 +48,6 @@ class HomePagerFragment : Fragment() {
 
         // スワイプ位置を引数にしてFragment生成する
         override fun createFragment(position: Int): Fragment =
-            HomeContentFragment(position)
+            HomeContentFragment(position, binding)
     }
 }

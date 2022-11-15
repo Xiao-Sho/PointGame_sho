@@ -3,14 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home_content.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home_dice.xml" value="0.1" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.15893037336024218" />
+        <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.19021739130434784" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.19021739130434784" />
+        <entry key="app/src/main/res/layout/fragment_get_coupon.xml" value="0.19021739130434784" />
+        <entry key="app/src/main/res/layout/fragment_home_content.xml" value="0.19021739130434784" />
+        <entry key="app/src/main/res/layout/fragment_home_dice.xml" value="0.182370820668693" />
+        <entry key="app/src/main/res/layout/fragment_home_pager.xml" value="0.19021739130434784" />
+        <entry key="app/src/main/res/layout/fragment_list_coupon.xml" value="0.19021739130434784" />
       </map>
     </option>
   </component>
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
   </component>
 </project>

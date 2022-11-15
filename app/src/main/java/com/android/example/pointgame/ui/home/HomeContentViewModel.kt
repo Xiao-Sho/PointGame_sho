@@ -1,6 +1,5 @@
 package com.android.example.pointgame.ui.home
 
-import android.R
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
@@ -8,24 +7,18 @@ import android.graphics.Point
 import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
+import com.android.example.pointgame.databinding.FragmentHomePagerBinding
 
 
 private const val START_X = 187
 private const val START_Y = 104
 
 class HomeContentViewModel : ViewModel() {
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "This is home content Fragment"
-//    }
-//    val text: LiveData<String> = _text
-
     // サイコロマス（黄色マス）に到達したときのフラグ
     private var isDiceSquare = false
 
@@ -43,7 +36,7 @@ class HomeContentViewModel : ViewModel() {
     )
 
     // 星を移動させる
-    fun startMoveToPointAnim(fa: FragmentActivity, cl: ConstraintLayout, targetView: View, count: Int) {
+    fun startMoveToPointAnim(fa: FragmentActivity, cl: ConstraintLayout, targetView: View, count: Int, pagerBinding: FragmentHomePagerBinding) {
         val translationX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, translations[count].x.toFloat())
         val translationY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, translations[count].y.toFloat())
         val target = ObjectAnimator.ofPropertyValuesHolder(targetView, translationX, translationY).apply {
@@ -57,44 +50,44 @@ class HomeContentViewModel : ViewModel() {
         }
 
         // セットアップしてスタート
-        setupObjectAnimation(fa, cl, target)
+        setupObjectAnimation(fa, cl, target, pagerBinding)
         target.start()
     }
 
     // 星のアニメーション設定
-    private fun setupObjectAnimation(fa: FragmentActivity, cl: ConstraintLayout, objectAnimation: ObjectAnimator) {
+    private fun setupObjectAnimation(fa: FragmentActivity, cl: ConstraintLayout, objectAnimation: ObjectAnimator, pagerBinding: FragmentHomePagerBinding) {
         objectAnimation.addListener(object: Animator.AnimatorListener {
-            override fun onAnimationStart(anim: Animator?) {
+            override fun onAnimationStart(anim: Animator) {
                 Log.v("objectAnimation", "onAnimationStart")
             }
-            override fun onAnimationEnd(anim: Animator?) {
+            override fun onAnimationEnd(anim: Animator) {
                 Log.v("objectAnimation", "onAnimationEnd")
                 // objectAnimation.removeAllListeners()
                 // サイコロマス（黄色マス）に到達した場合
                 if (isDiceSquare) {
-//                    // サイコロを表示、星を非表示、Moveボタンを非表示
-//                    dice.visibility = View.VISIBLE
-//                    targetView.visibility = View.INVISIBLE
-//                    moveButton.visibility = View.INVISIBLE
-//
-//                    dice.playAnimation()
-
                     // フラグメントマネージャーの取得
                     val manager: FragmentManager = fa.supportFragmentManager
                     // フラグメントトランザクションの開始
                     val transaction: FragmentTransaction = manager.beginTransaction()
-                    // HomeDiceFragmentに切替え
-                    transaction.replace(cl.id, HomeDiceFragment());
+                    // HomeDiceFragmentに遷移
+                    transaction.add(cl.id, HomeDiceFragment(pagerBinding))
+                    // トランザクションを記録する
+                    transaction.addToBackStack(null)
+
+                    // サイコロ画面に遷移する前に、スワイプを無効にする
+                    pagerBinding.fragmentHomeFrameLayout.visibility = View.INVISIBLE
+                    pagerBinding.fragmentHomePager.isUserInputEnabled = false
+
                     // フラグメントトランザクションのコミット。コミットすることでFragmentの状態が反映される
                     transaction.commit()
 
                     isDiceSquare = false
                 }
             }
-            override fun onAnimationRepeat(anim: Animator?) {
+            override fun onAnimationRepeat(anim: Animator) {
                 Log.v("objectAnimation", "onAnimationRepeat")
             }
-            override fun onAnimationCancel(anim: Animator?) {
+            override fun onAnimationCancel(anim: Animator) {
                 Log.v("objectAnimation", "onAnimationCancel")
             }
         })

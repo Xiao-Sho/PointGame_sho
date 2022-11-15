@@ -5,23 +5,28 @@ import android.content.Context
 import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.android.example.pointgame.R
-import com.android.example.pointgame.databinding.FragmentHomeContentBinding
 import com.android.example.pointgame.databinding.FragmentHomeDiceBinding
+import com.android.example.pointgame.databinding.FragmentHomePagerBinding
 
 
-class HomeDiceFragment : Fragment() {
+class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
     private var _binding: FragmentHomeDiceBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var handler: Handler
 
     var moveview: MoveView? = null
 
@@ -51,13 +56,12 @@ class HomeDiceFragment : Fragment() {
         Before, Touch, Toss, After
     }
 
-
     //データクラスでダイス関係の変数を構造体にして扱う方が良さそう（1個しか投げないから不要といえば不要...？）
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeDiceBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -109,6 +113,16 @@ class HomeDiceFragment : Fragment() {
                     posY = event.y
                     dice = state.Touch
                 }
+                //ダイスが停止後の処理
+                else if (dice == state.After) {
+                    // フラグメントマネージャーの取得
+                    val manager: FragmentManager = requireActivity().supportFragmentManager
+                    // 遷移前のフラグメントに戻る
+                    manager.popBackStack()
+                    // すぐろく画面に遷移した後に、スワイプを有効にする
+                    pagerBinding.fragmentHomePager.isUserInputEnabled = true
+                    pagerBinding.fragmentHomeFrameLayout.visibility = View.VISIBLE
+                }
             }
             //画面から指を離したとき
             if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
@@ -142,10 +156,13 @@ class HomeDiceFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        //サブスレッド終了
+        handler.removeCallbacksAndMessages(null)
     }
 
     fun animrun(mv: MoveView) {
-        val handler = Handler()
+        handler = Handler(Looper.getMainLooper())
 
         //サブスレッドで実行
         handler.post(object : Runnable {
@@ -177,7 +194,6 @@ class HomeDiceFragment : Fragment() {
                     }
                     //投げた後
                     state.After -> {
-
                     }
                 }
                 //再描画
@@ -203,10 +219,41 @@ class HomeDiceFragment : Fragment() {
             if (v0 <= 100) {
                 posY = baseline
                 dice = state.After
+
                 //以下初期化処理
-                dice_reset()
+                //dice_reset()
+
                 //サイコロの状態は0~5でランダム設定。ここで確定する
                 num = (0..5).random()
+
+                when (num) {
+                    0, 3 -> {
+                        binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
+                            ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_1, null)
+                        )
+                    }
+                    1, 4 -> {
+                        binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
+                            ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_2, null)
+                        )
+                    }
+                    2, 5 -> {
+                        binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
+                            ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_3, null)
+                        )
+                    }
+                    else -> {
+                        binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
+                            ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_1, null)
+                        )
+                    }
+                }
+
+                //クーポン獲得メッセージを表示する
+                binding.fragmentHomeDiceGetCouponMessageImageView.visibility = View.VISIBLE
+
+                //トースト表示
+                Toast.makeText(activity, "画面をタッチするとスタンプラリー画面に戻ります", Toast.LENGTH_LONG).show()
             } else {//初速が100越えの場合は初速を半分にして反発
                 //反発したポジションを基準線に設定し、経過時間を0にする
                 posY = baseline
