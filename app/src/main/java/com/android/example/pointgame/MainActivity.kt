@@ -1,9 +1,7 @@
 package com.android.example.pointgame
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.MotionEvent
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,11 +19,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // バインディング
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // アクションバー
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        // ドロワー
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)

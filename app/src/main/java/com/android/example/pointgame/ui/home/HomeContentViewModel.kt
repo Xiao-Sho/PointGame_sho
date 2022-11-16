@@ -22,6 +22,7 @@ class HomeContentViewModel : ViewModel() {
     // サイコロマス（黄色マス）に到達したときのフラグ
     private var isDiceSquare = false
 
+    // 各マスの座標
     val translations: List<Point> = listOf(
         Point(170 - START_X,525 - START_Y),   // 170, 525
         Point(543 - START_X, 525 - START_Y),  // 543, 525
@@ -81,6 +82,7 @@ class HomeContentViewModel : ViewModel() {
                     // フラグメントトランザクションのコミット。コミットすることでFragmentの状態が反映される
                     transaction.commit()
 
+                    // フラグ更新
                     isDiceSquare = false
                 }
             }

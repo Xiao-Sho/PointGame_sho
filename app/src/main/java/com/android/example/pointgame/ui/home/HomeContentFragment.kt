@@ -33,6 +33,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         val homeContentViewModel =
             ViewModelProvider(this)[HomeContentViewModel::class.java]
 
+        // バインディング
         _binding = FragmentHomeContentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -48,6 +49,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
             }
         }
 
+        // Moveボタン押下した際の挙動
         binding.fragmentHomeContentMoveButton.setOnClickListener{
             // ゴールに到達していない場合
             if (count < homeContentViewModel.translations.size) {

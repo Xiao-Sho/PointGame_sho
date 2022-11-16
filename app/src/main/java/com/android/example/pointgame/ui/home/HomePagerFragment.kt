@@ -21,17 +21,18 @@ class HomePagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val homePagerViewModel =
-//            ViewModelProvider(this).get(HomePagerViewModel::class.java)
+        //val homePagerViewModel =
+        //    ViewModelProvider(this).get(HomePagerViewModel::class.java)
 
+        // バインディング
         _binding = FragmentHomePagerBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // ページインスタンスを用意
+        // ページインスタンスを用意してセット
         val pagerAdapter = PagerAdapter(requireActivity())
-        // セット
         binding.fragmentHomePager.adapter = pagerAdapter
 
+        // ページコントロール
         TabLayoutMediator(binding.fragmentHomeTabLayout, binding.fragmentHomePager) { _, _ -> }.attach()
 
         return root
