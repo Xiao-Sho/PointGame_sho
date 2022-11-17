@@ -26,7 +26,7 @@ class ListCouponFragment : Fragment() {
         _binding = FragmentListCouponBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textListCoupon
+        val textView: TextView = binding.fragmentListCouponTitle
         galleryViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
