@@ -26,10 +26,10 @@ class GetCouponFragment : Fragment() {
         _binding = FragmentGetCouponBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textGetCoupon
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textGetCoupon
+//        slideshowViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 
