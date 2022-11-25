@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home_pager">
+
+    <fragment
+        android:id="@+id/nav_home_pager"
+        android:name="com.android.example.pointgame.ui.home.HomePagerFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home_pager" />
+
+    <fragment
+        android:id="@+id/nav_list_coupon"
+        android:name="com.android.example.pointgame.ui.listcoupon.ListCouponFragment"
+        android:label="@string/menu_list_coupon"
+        tools:layout="@layout/fragment_list_coupon" />
+
+    <fragment
+        android:id="@+id/nav_get_coupon"
+        android:name="com.android.example.pointgame.ui.getcoupon.GetCouponFragment"
+        android:label="@string/menu_get_coupon"
+        tools:layout="@layout/fragment_get_coupon" />
+</navigation>
