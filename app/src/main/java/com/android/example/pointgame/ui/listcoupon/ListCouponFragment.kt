@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,14 +21,14 @@ class ListCouponFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(ListCouponViewModel::class.java)
+        val listCouponViewModel =
+            ViewModelProvider(this)[ListCouponViewModel::class.java]
 
         _binding = FragmentListCouponBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.fragmentListCouponTitle
-        galleryViewModel.text.observe(viewLifecycleOwner) {
+        listCouponViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
