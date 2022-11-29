@@ -5,19 +5,4 @@
     android:id="@+id/fragment_home_dice_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black2">
-
-    <ImageView
-        android:id="@+id/fragment_home_dice_get_coupon_message_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:srcCompat="@drawable/get_coupon_message_1"
-        tools:ignore="contentDescription" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@color/black" />

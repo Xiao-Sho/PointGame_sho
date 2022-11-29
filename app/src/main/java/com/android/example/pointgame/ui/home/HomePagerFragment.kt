@@ -21,18 +21,17 @@ class HomePagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //val homePagerViewModel =
-        //    ViewModelProvider(this).get(HomePagerViewModel::class.java)
+//        val homePagerViewModel =
+//            ViewModelProvider(this).get(HomePagerViewModel::class.java)
 
-        // バインディング
         _binding = FragmentHomePagerBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // ページインスタンスを用意してセット
+        // ページインスタンスを用意
         val pagerAdapter = PagerAdapter(requireActivity())
+        // セット
         binding.fragmentHomePager.adapter = pagerAdapter
 
-        // ページコントロール
         TabLayoutMediator(binding.fragmentHomeTabLayout, binding.fragmentHomePager) { _, _ -> }.attach()
 
         return root
@@ -49,6 +48,6 @@ class HomePagerFragment : Fragment() {
 
         // スワイプ位置を引数にしてFragment生成する
         override fun createFragment(position: Int): Fragment =
-            HomeContentFragment(position, binding)
+            HomeContentFragment(position)
     }
 }

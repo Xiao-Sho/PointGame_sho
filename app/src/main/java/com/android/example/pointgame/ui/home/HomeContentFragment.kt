@@ -10,13 +10,11 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentHomeContentBinding
-import com.android.example.pointgame.databinding.FragmentHomePagerBinding
 
 
-class HomeContentFragment(private val position: Int, private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
+class HomeContentFragment(private val position: Int) : Fragment() {
     private var _binding: FragmentHomeContentBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,7 +31,6 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         val homeContentViewModel =
             ViewModelProvider(this)[HomeContentViewModel::class.java]
 
-        // バインディング
         _binding = FragmentHomeContentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -49,11 +46,10 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
             }
         }
 
-        // Moveボタン押下した際の挙動
         binding.fragmentHomeContentMoveButton.setOnClickListener{
             // ゴールに到達していない場合
             if (count < homeContentViewModel.translations.size) {
-                homeContentViewModel.startMoveToPointAnim(requireActivity(), binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentImageView, count, pagerBinding)
+                homeContentViewModel.startMoveToPointAnim(requireActivity(), binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentImageView, count)
                 count++
             }
         }

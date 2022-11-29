@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class ListCouponViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
-        value = "クーポン一覧"
+        value = "This is list coupon Fragment"
     }
     val text: LiveData<String> = _text
 }
