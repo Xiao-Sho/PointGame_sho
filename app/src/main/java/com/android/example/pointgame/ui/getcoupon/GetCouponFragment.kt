@@ -3,6 +3,7 @@ package com.android.example.pointgame.ui.getcoupon
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.*
 import androidx.fragment.app.Fragment
@@ -114,8 +115,10 @@ class GetCouponFragment : Fragment() {
         couponButton.background = ResourcesCompat.getDrawable(resources, R.drawable.border, null)
         //couponButton.gravity = Gravity.CENTER
         couponButton.setPadding(couponButton.paddingLeft, 0.dp, couponButton.paddingRight, 0.dp)
-        couponButton.text = if (coupon.isUsed) "使用済" else "クーポン使用"
         couponButton.textSize = 4.5f.sp
+        couponButton.text = if (coupon.isUsed) "使用済" else "クーポン使用"
+        val color = if (coupon.isUsed) R.color.red else R.color.purple_500
+        couponButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), color)
 
         // 行追加
         ll.addView(couponTv)
