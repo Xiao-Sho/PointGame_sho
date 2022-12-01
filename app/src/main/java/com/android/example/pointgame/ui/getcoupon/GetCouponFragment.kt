@@ -6,7 +6,7 @@ import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentGetCouponBinding
 import com.android.example.pointgame.util.dp
@@ -20,13 +20,16 @@ class GetCouponFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    // 共有ビューモデル
+    private val sharedGetCouponViewModel: GetCouponViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val getCouponViewModel =
-            ViewModelProvider(this)[GetCouponViewModel::class.java]
+        //val getCouponViewModel =
+        //    ViewModelProvider(this)[GetCouponViewModel::class.java]
 
         // バインディング
         _binding = FragmentGetCouponBinding.inflate(inflater, container, false)
@@ -34,14 +37,14 @@ class GetCouponFragment : Fragment() {
 
         // タイトル
         val textView: TextView = binding.fragmentGetCouponTitle
-        getCouponViewModel.text.observe(viewLifecycleOwner) {
+        sharedGetCouponViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
 
         // テーブル取得
         var tl: TableLayout = binding.fragmentGetCouponTableLayout
 
-        getCouponViewModel.coupons.observe(viewLifecycleOwner) {
+        sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
             for (coupon in it) {
                 // 行追加
                 addRow(tl, coupon)

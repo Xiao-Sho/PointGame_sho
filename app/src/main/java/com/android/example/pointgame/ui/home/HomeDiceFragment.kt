@@ -15,9 +15,14 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentHomeDiceBinding
 import com.android.example.pointgame.databinding.FragmentHomePagerBinding
+import com.android.example.pointgame.ui.getcoupon.Coupon
+import com.android.example.pointgame.ui.getcoupon.GetCouponViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
@@ -27,6 +32,12 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
     private val binding get() = _binding!!
 
     private lateinit var handler: Handler
+
+    // 共有ビューモデル
+    private val sharedGetCouponViewModel: GetCouponViewModel by activityViewModels()
+
+    // 獲得クーポン日時形式
+    private val formatter = DateTimeFormatter.ofPattern("YYYY/MM/dd HH:mm:ss")
 
     var moveview: MoveView? = null
 
@@ -228,24 +239,49 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
 
                 when (num) {
                     0, 3 -> {
+                        // イメージセット
                         binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
                             ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_1, null)
                         )
+                        // 共有ビューモデルに獲得クーポンを追加
+                        sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
+                            val dt = LocalDateTime.now()
+                            it.add(Coupon(dt.format(formatter),"ジュース引き換え券"))
+                        }
                     }
                     1, 4 -> {
+                        // イメージセット
                         binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
                             ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_2, null)
                         )
+                        // 共有ビューモデルに獲得クーポンを追加
+                        sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
+                            val dt = LocalDateTime.now()
+                            it.add(Coupon(dt.format(formatter),"お菓子引き換え券"))
+                        }
                     }
                     2, 5 -> {
+                        // イメージセット
                         binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
                             ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_3, null)
                         )
+                        // 共有ビューモデルに獲得クーポンを追加
+                        sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
+                            val dt = LocalDateTime.now()
+                            it.add(Coupon(dt.format(formatter),"キオスク割引券"))
+                        }
                     }
                     else -> {
+                        // デッドロジックであるが、念のため定義
+                        // イメージセット
                         binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
                             ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_1, null)
                         )
+                        // 共有ビューモデルに獲得クーポンを追加
+                        sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
+                            val dt = LocalDateTime.now()
+                            it.add(Coupon(dt.format(formatter),"ジュース引き換え券"))
+                        }
                     }
                 }
 

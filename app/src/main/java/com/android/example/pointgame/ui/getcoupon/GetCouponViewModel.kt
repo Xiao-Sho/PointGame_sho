@@ -23,12 +23,9 @@ class GetCouponViewModel : ViewModel() {
 
     // 獲得クーポン
     private val _coupons = MutableLiveData<MutableList<Coupon>>().apply {
-        value = mutableListOf(
-            Coupon("2022/09/20 00:00:00","ジュース引き換え券"),
-            Coupon("2022/09/21 00:00:00","ジュース引き換え券"),
-            Coupon("2022/09/22 00:00:00","ジュース引き換え券"))
+        value = mutableListOf()
     }
-    val coupons: LiveData<MutableList<Coupon>> = _coupons
+    var coupons: MutableLiveData<MutableList<Coupon>> = _coupons
 }
 
 class Coupon(date: String, name: String) {
