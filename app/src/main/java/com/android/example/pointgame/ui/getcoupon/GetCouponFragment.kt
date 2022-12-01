@@ -49,8 +49,8 @@ class GetCouponFragment : Fragment() {
 
         // 行追加
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
-            for (i in it.indices) {
-                addRow(tl, it[i], i)
+            for (coupon in it) {
+                addRow(tl, coupon)
             }
         }
 
@@ -62,7 +62,7 @@ class GetCouponFragment : Fragment() {
         _binding = null
     }
 
-    private fun addRow(tl: TableLayout, coupon: Coupon, i: Int) {
+    private fun addRow(tl: TableLayout, coupon: Coupon) {
         // 行用意
         var tr: TableRow = TableRow(requireContext())
         var dateTv: TextView = TextView(requireContext())
@@ -132,8 +132,8 @@ class GetCouponFragment : Fragment() {
                     .setPositiveButton("使用済にする",
                         DialogInterface.OnClickListener { _, _ ->
                             sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
-                                it[i].isUsed = true
-                                updateCouponButton(it[i].isUsed, couponButton)
+                                coupon.isUsed = true
+                                updateCouponButton(coupon.isUsed, couponButton)
                             }
                         })
                     .setNegativeButton("キャンセル",
