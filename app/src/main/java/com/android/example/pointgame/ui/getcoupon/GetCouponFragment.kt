@@ -75,11 +75,11 @@ class GetCouponFragment : Fragment() {
 
     private fun addRow(tl: TableLayout, coupon: Coupon) {
         // 行用意
-        var tr: TableRow = TableRow(requireContext())
-        var dateTv: TextView = TextView(requireContext())
-        var ll: LinearLayout = LinearLayout(requireContext())
-        var couponTv: TextView = TextView(requireContext())
-        var couponButton: Button = MaterialButton(requireContext())
+        val tr: TableRow = TableRow(requireContext())
+        val dateTv: TextView = TextView(requireContext())
+        val ll: LinearLayout = LinearLayout(requireContext())
+        val couponTv: TextView = TextView(requireContext())
+        val couponButton: Button = MaterialButton(requireContext())
 
         // TableRow属性
         tr.layoutParams = TableLayout.LayoutParams(
