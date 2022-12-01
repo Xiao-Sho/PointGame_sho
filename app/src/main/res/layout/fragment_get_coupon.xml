@@ -30,10 +30,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="獲得クーポン" />
 
+        <TextView
+            android:id="@+id/fragment_get_coupon_no_coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="クーポンはありません"
+            android:visibility="gone" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +51,8 @@
             <TableLayout
                 android:id="@+id/fragment_get_coupon_table_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="visible">
 
                 <!-- ヘッダ -->
                 <TableRow
@@ -113,6 +123,8 @@
                 </TableRow>
                 -->
             </TableLayout>
+
         </ScrollView>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

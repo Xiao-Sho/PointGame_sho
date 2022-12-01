@@ -2,6 +2,7 @@ package com.android.example.pointgame.ui.getcoupon
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -45,12 +46,22 @@ class GetCouponFragment : Fragment() {
         }
 
         // テーブル取得
-        var tl: TableLayout = binding.fragmentGetCouponTableLayout
+        val tl: TableLayout = binding.fragmentGetCouponTableLayout
 
-        // 行追加
+        // クーポンなし文言
+        val noCouponText: TextView = binding.fragmentGetCouponNoCoupon
+
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
-            for (coupon in it) {
-                addRow(tl, coupon)
+            // 獲得クーポンが何もない場合はテーブル自体を非表示、クーポンなし文言を表示
+            // 獲得クーポンがある場合は、行追加を繰り返して表を作成
+            if (it.isEmpty()) {
+                tl.visibility = View.GONE
+                noCouponText.visibility = View.VISIBLE
+            }
+            else {
+                for (coupon in it) {
+                    addRow(tl, coupon)
+                }
             }
         }
 
