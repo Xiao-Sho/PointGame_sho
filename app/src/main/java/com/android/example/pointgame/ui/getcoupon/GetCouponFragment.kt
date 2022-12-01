@@ -1,5 +1,7 @@
 package com.android.example.pointgame.ui.getcoupon
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -47,8 +49,8 @@ class GetCouponFragment : Fragment() {
 
         // 行追加
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
-            for (coupon in it) {
-                addRow(tl, coupon)
+            for (i in it.indices) {
+                addRow(tl, it[i], i)
             }
         }
 
@@ -60,7 +62,7 @@ class GetCouponFragment : Fragment() {
         _binding = null
     }
 
-    private fun addRow(tl: TableLayout, coupon: Coupon) {
+    private fun addRow(tl: TableLayout, coupon: Coupon, i: Int) {
         // 行用意
         var tr: TableRow = TableRow(requireContext())
         var dateTv: TextView = TextView(requireContext())
@@ -116,9 +118,31 @@ class GetCouponFragment : Fragment() {
         //couponButton.gravity = Gravity.CENTER
         couponButton.setPadding(couponButton.paddingLeft, 0.dp, couponButton.paddingRight, 0.dp)
         couponButton.textSize = 4.5f.sp
-        couponButton.text = if (coupon.isUsed) "使用済" else "クーポン使用"
-        val color = if (coupon.isUsed) R.color.red else R.color.purple_500
-        couponButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), color)
+        updateCouponButton(coupon.isUsed, couponButton)
+        couponButton.setOnClickListener {
+            activity?.let {
+                val builder = AlertDialog.Builder(it)
+                // Get the layout inflater
+                val inflater = requireActivity().layoutInflater
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.qr_code_dialog, null))
+                    // Add action buttons
+                    .setPositiveButton("使用済にする",
+                        DialogInterface.OnClickListener { _, _ ->
+                            sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
+                                it[i].isUsed = true
+                                updateCouponButton(it[i].isUsed, couponButton)
+                            }
+                        })
+                    .setNegativeButton("キャンセル",
+                        DialogInterface.OnClickListener { _, _ ->
+                            // sign in the user ...
+                        })
+                builder.show()
+            } ?: throw IllegalStateException("Activity cannot be null")
+        }
 
         // 行追加
         ll.addView(couponTv)
@@ -126,5 +150,17 @@ class GetCouponFragment : Fragment() {
         tr.addView(dateTv)
         tr.addView(ll)
         tl.addView(tr)
+    }
+
+    private fun updateCouponButton(bool: Boolean, button: Button) {
+        if (bool) {
+            button.text = "使用済"
+            button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.red)
+            button.isEnabled = false
+        }
+        else {
+            button.text = "クーポン使用"
+            button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.purple_500)
+        }
     }
 }

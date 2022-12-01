@@ -31,5 +31,5 @@ class GetCouponViewModel : ViewModel() {
 class Coupon(dateTime: String, name: String) {
     val dateTime: String = dateTime
     val name: String = name
-    val isUsed: Boolean = false
+    var isUsed: Boolean = false
 }
