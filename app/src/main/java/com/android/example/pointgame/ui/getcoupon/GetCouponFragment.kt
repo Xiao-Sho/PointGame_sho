@@ -41,6 +41,22 @@ class GetCouponFragment : Fragment() {
         // テーブル取得
         var tl: TableLayout = binding.fragmentGetCouponTableLayout
 
+        getCouponViewModel.coupons.observe(viewLifecycleOwner) {
+            for (coupon in it) {
+                // 行追加
+                addRow(tl, coupon)
+            }
+        }
+
+        return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun addRow(tl: TableLayout, coupon: Coupon) {
         // 行用意
         var tr: TableRow = TableRow(requireContext())
         var dateTv: TextView = TextView(requireContext())
@@ -64,7 +80,7 @@ class GetCouponFragment : Fragment() {
         }
         dateTv.background = ResourcesCompat.getDrawable(resources, R.drawable.border, null)
         dateTv.setPadding(4.dp, dateTv.paddingTop, dateTv.paddingRight, dateTv.paddingBottom)
-        dateTv.text = "2022/09/14 00:00:00"
+        dateTv.text = coupon.date
 
         // LinearLayout属性
         ll.layoutParams = TableRow.LayoutParams(
@@ -81,7 +97,7 @@ class GetCouponFragment : Fragment() {
             LinearLayout.LayoutParams.MATCH_PARENT,
             25.dp
         )
-        couponTv.text = "ジュース引き換え券"
+        couponTv.text = coupon.name
 
         // Button属性
         couponButton.layoutParams = LinearLayout.LayoutParams(
@@ -104,12 +120,5 @@ class GetCouponFragment : Fragment() {
         tr.addView(dateTv)
         tr.addView(ll)
         tl.addView(tr)
-
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

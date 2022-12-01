@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- ヘッダ -->
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -67,48 +68,6 @@
                         android:text="獲得クーポン" />
 
                 </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.25"
-                        android:background="@drawable/border"
-                        android:paddingLeft="4dp"
-                        android:text="2022/09/26 00:00:00" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:text="お菓子引き換え券" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="4dp"
-                            android:width="125dp"
-                            android:background="@drawable/border"
-                            android:paddingTop="0dp"
-                            android:paddingBottom="0dp"
-                            android:text="クーポン使用"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-
-                </TableRow>
-
             </TableLayout>
         </ScrollView>
     </LinearLayout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ListCouponViewModel : ViewModel() {
+    // タイトル
     private val _text = MutableLiveData<String>().apply {
         value = "クーポン一覧"
     }
