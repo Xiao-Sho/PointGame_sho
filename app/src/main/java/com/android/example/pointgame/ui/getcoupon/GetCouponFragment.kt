@@ -44,9 +44,9 @@ class GetCouponFragment : Fragment() {
         // テーブル取得
         var tl: TableLayout = binding.fragmentGetCouponTableLayout
 
+        // 行追加
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
             for (coupon in it) {
-                // 行追加
                 addRow(tl, coupon)
             }
         }
@@ -83,7 +83,7 @@ class GetCouponFragment : Fragment() {
         }
         dateTv.background = ResourcesCompat.getDrawable(resources, R.drawable.border, null)
         dateTv.setPadding(4.dp, dateTv.paddingTop, dateTv.paddingRight, dateTv.paddingBottom)
-        dateTv.text = coupon.date
+        dateTv.text = coupon.dateTime
 
         // LinearLayout属性
         ll.layoutParams = TableRow.LayoutParams(
@@ -114,7 +114,7 @@ class GetCouponFragment : Fragment() {
         couponButton.background = ResourcesCompat.getDrawable(resources, R.drawable.border, null)
         //couponButton.gravity = Gravity.CENTER
         couponButton.setPadding(couponButton.paddingLeft, 0.dp, couponButton.paddingRight, 0.dp)
-        couponButton.text = "クーポン使用"
+        couponButton.text = if (coupon.isUsed) "使用済" else "クーポン使用"
         couponButton.textSize = 4.5f.sp
 
         // 行追加

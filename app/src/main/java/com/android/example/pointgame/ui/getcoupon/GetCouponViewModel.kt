@@ -28,7 +28,8 @@ class GetCouponViewModel : ViewModel() {
     var coupons: MutableLiveData<MutableList<Coupon>> = _coupons
 }
 
-class Coupon(date: String, name: String) {
-    val date: String = date
+class Coupon(dateTime: String, name: String) {
+    val dateTime: String = dateTime
     val name: String = name
+    val isUsed: Boolean = false
 }
