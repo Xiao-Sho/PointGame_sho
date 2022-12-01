@@ -2,19 +2,15 @@ package com.android.example.pointgame.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentHomeContentBinding
 import com.android.example.pointgame.databinding.FragmentHomePagerBinding
-
 
 class HomeContentFragment(private val position: Int, private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
     private var _binding: FragmentHomeContentBinding? = null
