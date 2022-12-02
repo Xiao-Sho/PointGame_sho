@@ -10,6 +10,9 @@
     <string name="menu_home">スタンプラリー</string>
     <string name="menu_list_coupon">クーポン一覧</string>
     <string name="menu_get_coupon">獲得クーポン</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_id">ID</string>
+    <string name="prompt_password">パスワード</string>
+    <string name="action_login">Login</string>
 </resources>
