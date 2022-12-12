@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModel
 import com.android.example.pointgame.databinding.FragmentHomePagerBinding
 
 
-private const val START_X = 187
-private const val START_Y = 104
+private const val START_X = 199
+private const val START_Y = 753
 
 class HomeContentViewModel : ViewModel() {
     // サイコロマス（黄色マス）に到達したときのフラグ
@@ -24,16 +24,16 @@ class HomeContentViewModel : ViewModel() {
 
     // 各マスの座標
     val translations: List<Point> = listOf(
-        Point(170 - START_X,525 - START_Y),   // 170, 525
-        Point(543 - START_X, 525 - START_Y),  // 543, 525
-        Point(888 - START_X, 525 - START_Y),  // 888, 525
-        Point(888 - START_X, 974 - START_Y),  // 888, 974
-        Point(543 - START_X, 974 - START_Y),  // 543, 974
-        Point(170 - START_X, 974 - START_Y),  // 170, 974
-        Point(170 - START_X, 1431 - START_Y), // 170, 1431
-        Point(543 - START_X, 1431 - START_Y), // 543, 1431
-        Point(888 - START_X, 1431 - START_Y), // 888, 1431
-        Point(888 - START_X, 1857 - START_Y)  // 888, 1857
+        Point(466 - START_X,708 - START_Y),
+        Point(747 - START_X, 763 - START_Y),
+        Point(969 - START_X, 885 - START_Y),
+        Point(840 - START_X, 1113 - START_Y),
+        Point(608 - START_X, 1178 - START_Y),
+        Point(367 - START_X, 1226 - START_Y),
+        Point(176 - START_X, 1374 - START_Y),
+        Point(376 - START_X, 1548 - START_Y),
+        Point(631 - START_X, 1596 - START_Y),
+        Point(889 - START_X, 1586 - START_Y)
     )
 
     // 星を移動させる

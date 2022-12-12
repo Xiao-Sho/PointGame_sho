@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.pointgame.R
@@ -36,12 +35,12 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         // スワイプ位置によって背景画像を動的に変更する
         when (position) {
             0 -> {
-                binding.fragmentHomeContentConstraintLayout.background =
-                    ResourcesCompat.getDrawable(resources, R.drawable.suica_stamp_rally_background, null)
+                binding.fragmentHomeContentBackground.setImageResource(R.drawable.suica_stamp_rally_background2)
+                binding.fragmentHomeContentTarget.setImageResource(R.drawable.suica_stamp_rally_train)
             }
             else -> {
-                binding.fragmentHomeContentConstraintLayout.background =
-                    ResourcesCompat.getDrawable(resources, R.drawable.viewcard_stamp_rally_background, null)
+                binding.fragmentHomeContentBackground.setImageResource(R.drawable.viewcard_stamp_rally_background2)
+                binding.fragmentHomeContentTarget.setImageResource(R.drawable.viewcard_stamp_rally_user)
             }
         }
 
@@ -49,7 +48,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         binding.fragmentHomeContentMoveButton.setOnClickListener{
             // ゴールに到達していない場合
             if (count < homeContentViewModel.translations.size) {
-                homeContentViewModel.startMoveToPointAnim(requireActivity(), binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentImageView, count, pagerBinding)
+                homeContentViewModel.startMoveToPointAnim(requireActivity(), binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget, count, pagerBinding)
                 count++
             }
         }
