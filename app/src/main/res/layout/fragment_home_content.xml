@@ -10,31 +10,32 @@
     <ImageView
         android:id="@+id/fragment_home_content_background"
         android:layout_width="match_parent"
-        android:layout_height="540dp"
+        android:layout_height="700dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19"
         tools:srcCompat="@drawable/suica_stamp_rally_background" />
 
     <Button
         android:id="@+id/fragment_home_content_move_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="264dp"
+        android:layout_width="106dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="260dp"
         android:text="Move"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/fragment_home_content_mid_icon"
-        android:layout_width="118dp"
-        android:layout_height="98dp"
+        android:layout_width="157dp"
+        android:layout_height="105dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.546"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.484"
@@ -42,39 +43,27 @@
 
     <ImageView
         android:id="@+id/fragment_home_content_goal_icon"
-        android:layout_width="117dp"
-        android:layout_height="106dp"
+        android:layout_width="169dp"
+        android:layout_height="138dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_bias="0.78"
         tools:srcCompat="@drawable/suica_stamp_rally_goal_icon" />
 
     <ImageView
-        android:id="@+id/fragment_home_content_pond_image"
-        android:layout_width="85dp"
-        android:layout_height="35dp"
-        android:src="@drawable/suica_stamp_rally_pond_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.673" />
-
-    <ImageView
         android:id="@+id/fragment_home_content_target"
-        android:layout_width="76dp"
-        android:layout_height="67dp"
+        android:layout_width="123dp"
+        android:layout_height="74dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307"
+        app:layout_constraintVertical_bias="0.282"
         tools:srcCompat="@drawable/suica_stamp_rally_train" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

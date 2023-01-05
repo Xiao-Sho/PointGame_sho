@@ -24,16 +24,16 @@ class HomeContentViewModel : ViewModel() {
 
     // 各マスの座標
     val translations: List<Point> = listOf(
-        Point(466 - START_X,708 - START_Y),
-        Point(747 - START_X, 763 - START_Y),
-        Point(969 - START_X, 885 - START_Y),
-        Point(840 - START_X, 1113 - START_Y),
-        Point(608 - START_X, 1178 - START_Y),
-        Point(367 - START_X, 1226 - START_Y),
-        Point(176 - START_X, 1374 - START_Y),
-        Point(376 - START_X, 1548 - START_Y),
-        Point(631 - START_X, 1596 - START_Y),
-        Point(889 - START_X, 1586 - START_Y)
+        Point(466 - START_X,720 - START_Y),
+        Point(747 - START_X, 780 - START_Y),
+        Point(969 - START_X, 910 - START_Y),
+        Point(840 - START_X, 1200 - START_Y),
+        Point(608 - START_X, 1300 - START_Y),
+        Point(367 - START_X, 1350 - START_Y),
+        Point(176 - START_X, 1500 - START_Y),
+        Point(376 - START_X, 1740 - START_Y),
+        Point(631 - START_X, 1750 - START_Y),
+        Point(889 - START_X, 1800 - START_Y)
     )
 
     // 星を移動させる

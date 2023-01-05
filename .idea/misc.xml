@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.15893037336024218" />
+        <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/fragment_home_content.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.1775" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.19021739130434784" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.19021739130434784" />
@@ -15,6 +18,7 @@
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
