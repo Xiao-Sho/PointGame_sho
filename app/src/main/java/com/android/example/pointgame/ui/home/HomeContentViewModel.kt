@@ -22,8 +22,9 @@ class HomeContentViewModel : ViewModel() {
     // サイコロマス（黄色マス）に到達したときのフラグ
     private var isDiceSquare = false
 
-    // 各マスの座標
+    // 各マスの座標背景にあわせて調整済み
     val translations: List<Point> = listOf(
+        Point(176 - START_X,780 - START_Y),
         Point(466 - START_X,720 - START_Y),
         Point(747 - START_X, 780 - START_Y),
         Point(969 - START_X, 910 - START_Y),
@@ -42,6 +43,27 @@ class HomeContentViewModel : ViewModel() {
         val translationY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, translations[count].y.toFloat())
         val target = ObjectAnimator.ofPropertyValuesHolder(targetView, translationX, translationY).apply {
             duration = 1000 // 1秒
+            interpolator = DecelerateInterpolator() // 急速に開始し、その後減速しながら変化させる
+        }
+
+        // 次マスがサイコロマス（黄色マス）の場合
+        if (count == 4 || count == translations.size - 1) {
+            isDiceSquare = true
+        }
+
+        // セットアップしてスタート
+        setupObjectAnimation(fa, cl, target, pagerBinding)
+        target.start()
+    }
+
+
+    //
+
+    fun startMoveToPointAnimtest(fa: FragmentActivity, cl: ConstraintLayout, targetView: View, count: Int, pagerBinding: FragmentHomePagerBinding) {
+        val translationX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, translations[count].x.toFloat())
+        val translationY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, translations[count].y.toFloat())
+        val target = ObjectAnimator.ofPropertyValuesHolder(targetView, translationX, translationY).apply {
+            duration = 0 // 1秒
             interpolator = DecelerateInterpolator() // 急速に開始し、その後減速しながら変化させる
         }
 

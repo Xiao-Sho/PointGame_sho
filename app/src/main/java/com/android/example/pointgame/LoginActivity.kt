@@ -36,8 +36,13 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("EMAIL", it.email)
                     startActivity(intent)
                 }
+
             }
+
         }
+
+
+
     }
 }
 
