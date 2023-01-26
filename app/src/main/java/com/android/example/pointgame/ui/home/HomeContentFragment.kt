@@ -18,9 +18,9 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var SUM = 0
+    private var sum = 0
     private var pos=0
-    private var count = 6
+    private var count = 0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -36,6 +36,12 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         // バインディング
         _binding = FragmentHomeContentBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        //sum,posの変数にファイルの数字を入れる
+        DataLoad()
+
+       //textView表示
+        binding.textView.text=sum.toString()
 
         homeContentViewModel.startMoveToPointAnimtest(requireActivity(),
             binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget, count, pagerBinding)
@@ -62,9 +68,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         binding.fragmentHomeContentMoveButton.setOnClickListener{
             val money = arrayOf(1000,1000,1000).random() //追加分
 
-            SUM = SUM + money
-
-            DataSave()
+            sum = sum + money
 
             var n = (money-money%500)/500 //追加分
             while(n>0){
@@ -74,10 +78,14 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
                     homeContentViewModel.startMoveToPointAnim(requireActivity(),
                         binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget,
                         count, pagerBinding)
+
                 }
                 n = n-1
-                //test
+
             }
+
+            //データを保持
+            DataSave()
         }
 
 //        // マスの座標位置調査用
@@ -103,12 +111,28 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 
     fun DataSave(){
 
-        requireContext().openFileOutput("SUM", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-            it.write("mieno")
+        requireContext().openFileOutput("moneysum", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+            it.write(sum.toString())
         }
         requireContext().openFileOutput("position", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-            it.write("xiao")
+            it.write(count.toString())
         }
+    }
+
+    fun DataLoad(){
+
+        var data=""
+        requireContext().openFileInput("moneysum").bufferedReader().forEachLine {
+            data+=it
+        }
+        sum=data.toInt()
+
+        data=""
+        requireContext().openFileInput("position").bufferedReader().forEachLine {
+            data+=it
+        }
+        count=data.toInt()
+
     }
 
 

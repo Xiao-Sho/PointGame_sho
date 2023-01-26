@@ -47,7 +47,7 @@ class HomeContentViewModel : ViewModel() {
         }
 
         // 次マスがサイコロマス（黄色マス）の場合
-        if (count == 4 || count == translations.size - 1) {
+        if (count == 5 || count == translations.size - 1) {
             isDiceSquare = true
         }
 
@@ -59,7 +59,8 @@ class HomeContentViewModel : ViewModel() {
 
     //
 
-    fun startMoveToPointAnimtest(fa: FragmentActivity, cl: ConstraintLayout, targetView: View, count: Int, pagerBinding: FragmentHomePagerBinding) {
+    fun startMoveToPointAnimtest(fa: FragmentActivity, cl: ConstraintLayout,
+                                 targetView: View, count: Int, pagerBinding: FragmentHomePagerBinding) {
         val translationX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, translations[count].x.toFloat())
         val translationY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, translations[count].y.toFloat())
         val target = ObjectAnimator.ofPropertyValuesHolder(targetView, translationX, translationY).apply {
@@ -68,7 +69,7 @@ class HomeContentViewModel : ViewModel() {
         }
 
         // 次マスがサイコロマス（黄色マス）の場合
-        if (count == 4 || count == translations.size - 1) {
+        if (count == 6 || count == translations.size - 1) {
             isDiceSquare = true
         }
 
