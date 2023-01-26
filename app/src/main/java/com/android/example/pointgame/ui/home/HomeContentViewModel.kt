@@ -69,9 +69,9 @@ class HomeContentViewModel : ViewModel() {
         }
 
         // 次マスがサイコロマス（黄色マス）の場合
-        if (count == 6 || count == translations.size - 1) {
-            isDiceSquare = true
-        }
+//        if (count == 5 || count == translations.size - 1) {
+//            isDiceSquare = true
+//        }
 
         // セットアップしてスタート
         setupObjectAnimation(fa, cl, target, pagerBinding)

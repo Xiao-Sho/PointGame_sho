@@ -19,7 +19,6 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
     // onDestroyView.
     private val binding get() = _binding!!
     private var sum = 0
-    private var pos=0
     private var count = 0
 
     @SuppressLint("ClickableViewAccessibility")
@@ -64,12 +63,15 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
             }
         }
 
-        // Moveボタン押下した際の挙動
-        binding.fragmentHomeContentMoveButton.setOnClickListener{
+        //ログイン後の挙動
+//        binding.fragmentHomeContentMoveButton.setOnClickListener{
             val money = arrayOf(1000,1000,1000).random() //追加分
 
             sum = sum + money
 
+            binding.textView.text=sum.toString()
+
+        if(count<10){
             var n = (money-money%500)/500 //追加分
             while(n>0){
                 // ゴールに到達していない場合
@@ -81,12 +83,12 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 
                 }
                 n = n-1
-
             }
-
-            //データを保持
-            DataSave()
+//            }
         }
+
+//　　　データセーブ
+        DataSave()
 
 //        // マスの座標位置調査用
 //        root.setOnTouchListener { _, event ->
