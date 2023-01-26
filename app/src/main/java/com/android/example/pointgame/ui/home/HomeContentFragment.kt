@@ -76,6 +76,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
                         count, pagerBinding)
                 }
                 n = n-1
+                //test
             }
         }
 
