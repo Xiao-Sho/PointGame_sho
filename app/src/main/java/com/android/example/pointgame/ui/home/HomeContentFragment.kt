@@ -21,6 +21,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
     private var sum = 0
     private var count = 0
 
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,58 +38,71 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         val root: View = binding.root
 
         //sum,posの変数にファイルの数字を入れる
-        DataLoad()
+//        DataLoad()
 
        //textView表示
         binding.textView.text=sum.toString()
 
-        homeContentViewModel.startMoveToPointAnimtest(requireActivity(),
-            binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget, count, pagerBinding)
+//        homeContentViewModel.startMoveToPointAnimtest(requireActivity(),
+//            binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget, count, pagerBinding)
 
         // スワイプ位置によって背景画像を動的に変更する
         when (position) {
             0 -> {
+                DataLoad()
                 binding.fragmentHomeContentBackground.setImageResource(R.drawable.suica_stamp_rally_background)
                 binding.fragmentHomeContentTarget.setImageResource(R.drawable.suica_stamp_rally_train)
                 binding.fragmentHomeContentMidIcon.setImageResource(R.drawable.suica_stamp_rally_mid_icon)
                 binding.fragmentHomeContentGoalIcon.setImageResource(R.drawable.suica_stamp_rally_goal_icon)
                 //binding.fragmentHomeContentPondImage.visibility = View.VISIBLE
+                homeContentViewModel.startMoveToPointAnimtest(requireActivity(),
+                    binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget,
+                    count, pagerBinding)
+
+                pointgametest()
+                DataSave()
             }
             else -> {
+                DataLoad2()
                 binding.fragmentHomeContentBackground.setImageResource(R.drawable.viewcard_stamp_rally_background)
                 binding.fragmentHomeContentTarget.setImageResource(R.drawable.viewcard_stamp_rally_user)
                 binding.fragmentHomeContentMidIcon.setImageResource(R.drawable.viewcard_stamp_rally_mid_icon)
                 binding.fragmentHomeContentGoalIcon.setImageResource(R.drawable.viewcard_stamp_rally_goal_icon)
                 //binding.fragmentHomeContentPondImage.visibility = View.GONE
+                homeContentViewModel.startMoveToPointAnimtest(requireActivity(),
+                    binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget,
+                    count, pagerBinding)
+
+                pointgametest()
+                DataSave2()
             }
         }
 
-        //ログイン後の挙動
-//        binding.fragmentHomeContentMoveButton.setOnClickListener{
-            val money = arrayOf(1000,1000,1000).random() //追加分
-
-            sum = sum + money
-
-            binding.textView.text=sum.toString()
-
-        if(count<10){
-            var n = (money-money%500)/500 //追加分
-            while(n>0){
-                // ゴールに到達していない場合
-                if (count < homeContentViewModel.translations.size) {
-                    count++
-                    homeContentViewModel.startMoveToPointAnim(requireActivity(),
-                        binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget,
-                        count, pagerBinding)
-
-                }
-                n = n-1
-            }
+//        //ログイン後の挙動
+////        binding.fragmentHomeContentMoveButton.setOnClickListener{
+//            val money = arrayOf(1000,1000,1000).random() //追加分
+//            sum = sum + money
+//            binding.textView.text=sum.toString()
+//            var n = (money-money%500)/500 //追加分
+//
+//
+//            while(n>0){
+//                // ゴールに到達していない場合
+//                if (count < homeContentViewModel.translations.size && count < 10) {
+//                    count++
+//                    homeContentViewModel.startMoveToPointAnim(requireActivity(),
+//                        binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget,
+//                        count, pagerBinding)
+//                }
+//                n = n-1
 //            }
-        }
+////            }
+
 
 //　　　データセーブ
-        DataSave()
+
+
+
 
 //        // マスの座標位置調査用
 //        root.setOnTouchListener { _, event ->
@@ -102,6 +116,9 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 //            }
 //            true
 //        }
+
+
+
 
         return root
     }
@@ -136,6 +153,57 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         count=data.toInt()
 
     }
+
+    fun DataSave2(){
+
+        requireContext().openFileOutput("moneysum2", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+            it.write(sum.toString())
+        }
+        requireContext().openFileOutput("position2", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+            it.write(count.toString())
+        }
+    }
+
+    fun DataLoad2(){
+
+        var data=""
+        requireContext().openFileInput("moneysum2").bufferedReader().forEachLine {
+            data+=it
+        }
+        sum=data.toInt()
+
+        data=""
+        requireContext().openFileInput("position2").bufferedReader().forEachLine {
+            data+=it
+        }
+        count=data.toInt()
+
+    }
+
+
+    fun pointgametest(){
+        val homeContentViewModel =
+        ViewModelProvider(this)[HomeContentViewModel::class.java]
+
+        val money = arrayOf(1000,1000,1000).random() //追加分
+        sum = sum + money
+        binding.textView.text=sum.toString()
+        var n = (money-money%500)/500 //追加分
+
+
+        while(n>0){
+            // ゴールに到達していない場合
+            if (count < homeContentViewModel.translations.size && count < 10) {
+                count++
+                homeContentViewModel.startMoveToPointAnim(requireActivity(),
+                    binding.fragmentHomeContentConstraintLayout, binding.fragmentHomeContentTarget,
+                    count, pagerBinding)
+            }
+            n = n-1
+        }
+    }
+
+
 
 
 
