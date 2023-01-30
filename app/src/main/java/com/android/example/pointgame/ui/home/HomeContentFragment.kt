@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentHomeContentBinding
 import com.android.example.pointgame.databinding.FragmentHomePagerBinding
+import java.io.File
 
 
 class HomeContentFragment(private val position: Int, private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
@@ -49,7 +50,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         // スワイプ位置によって背景画像を動的に変更する
         when (position) {
             0 -> {
-                DataLoad()
+//                DataLoad()
                 binding.fragmentHomeContentBackground.setImageResource(R.drawable.suica_stamp_rally_background)
                 binding.fragmentHomeContentTarget.setImageResource(R.drawable.suica_stamp_rally_train)
                 binding.fragmentHomeContentMidIcon.setImageResource(R.drawable.suica_stamp_rally_mid_icon)
@@ -63,7 +64,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
                 DataSave()
             }
             else -> {
-                DataLoad2()
+//                DataLoad2()
                 binding.fragmentHomeContentBackground.setImageResource(R.drawable.viewcard_stamp_rally_background)
                 binding.fragmentHomeContentTarget.setImageResource(R.drawable.viewcard_stamp_rally_user)
                 binding.fragmentHomeContentMidIcon.setImageResource(R.drawable.viewcard_stamp_rally_mid_icon)
@@ -141,16 +142,27 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
     fun DataLoad(){
 
         var data=""
-        requireContext().openFileInput("moneysum").bufferedReader().forEachLine {
-            data+=it
+        val sumfile = File("/data/data/com.android.example.pointgame/files/moneysum")
+        if(sumfile.exists()) {
+            requireContext().openFileInput("moneysum").bufferedReader().forEachLine {
+                data += it
+            }
+            sum = data.toInt()
         }
-        sum=data.toInt()
-
+        else{
+            sum = 0
+        }
         data=""
-        requireContext().openFileInput("position").bufferedReader().forEachLine {
-            data+=it
+        val posfile = File("/data/data/com.android.example.pointgame/files/position")
+        if(posfile.exists()){
+            requireContext().openFileInput("position").bufferedReader().forEachLine {
+                data += it
+            }
+            count = data.toInt()
         }
-        count=data.toInt()
+        else{
+            count=0
+        }
 
     }
 
@@ -167,16 +179,27 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
     fun DataLoad2(){
 
         var data=""
-        requireContext().openFileInput("moneysum2").bufferedReader().forEachLine {
-            data+=it
+        val sumfile = File("/data/data/com.android.example.pointgame/files/moneysum2")
+        if(sumfile.exists()) {
+            requireContext().openFileInput("moneysum2").bufferedReader().forEachLine {
+                data += it
+            }
+            sum = data.toInt()
         }
-        sum=data.toInt()
-
+        else{
+            sum = 0
+        }
         data=""
-        requireContext().openFileInput("position2").bufferedReader().forEachLine {
-            data+=it
+        val posfile = File("/data/data/com.android.example.pointgame/files/position2")
+        if(posfile.exists()){
+            requireContext().openFileInput("position2").bufferedReader().forEachLine {
+                data += it
+            }
+            count = data.toInt()
         }
-        count=data.toInt()
+        else{
+            count=0
+        }
 
     }
 

@@ -2,13 +2,18 @@ package com.android.example.pointgame.ui.getcoupon
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.opengl.Visibility
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.*
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.android.example.pointgame.R
@@ -23,7 +28,7 @@ class GetCouponFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    private var coupons = "null"
     // 共有ビューモデル
     private val sharedGetCouponViewModel: GetCouponViewModel by activityViewModels()
 
@@ -54,6 +59,9 @@ class GetCouponFragment : Fragment() {
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
             // 獲得クーポンが何もない場合はテーブル自体を非表示、クーポンなし文言を表示
             // 獲得クーポンがある場合は、行追加を繰り返して表を作成
+            requireContext().openFileOutput("coupondata", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+               it.write(coupons)
+            }
             if (it.isEmpty()) {
                 tl.visibility = View.GONE
                 noCouponText.visibility = View.VISIBLE

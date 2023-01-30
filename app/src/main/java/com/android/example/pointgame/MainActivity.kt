@@ -116,21 +116,21 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 
-    fun DataLoad(){
-
-        var data=""
-        openFileInput("sum").bufferedReader().forEachLine {
-            data+=it
-        }
-        SUM=data.toInt()
-
-        data=""
-        openFileInput("position").bufferedReader().forEachLine {
-            data+=it
-        }
-        pos=data.toInt()
-
-    }
+//    fun DataLoad(){
+//
+//        var data=""
+//        openFileInput("sum").bufferedReader().forEachLine {
+//            data+=it
+//        }
+//        SUM=data.toInt()
+//
+//        data=""
+//        openFileInput("position").bufferedReader().forEachLine {
+//            data+=it
+//        }
+//        pos=data.toInt()
+//
+//    }
 
 
 
