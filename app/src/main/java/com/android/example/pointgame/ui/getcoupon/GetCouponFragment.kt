@@ -28,7 +28,7 @@ class GetCouponFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-   // private var coupons = "null"
+//    private var coupons = "null"
     // 共有ビューモデル
     private val sharedGetCouponViewModel: GetCouponViewModel by activityViewModels()
 
@@ -43,6 +43,8 @@ class GetCouponFragment : Fragment() {
         // バインディング
         _binding = FragmentGetCouponBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        //load
 
         // タイトル
         val textView: TextView = binding.fragmentGetCouponTitle
@@ -60,9 +62,7 @@ class GetCouponFragment : Fragment() {
             // 獲得クーポンが何もない場合はテーブル自体を非表示、クーポンなし文言を表示
             // 獲得クーポンがある場合は、行追加を繰り返して表を作成
             //ファイル読み込む　load
-            requireContext().openFileOutput("coupondata", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-               it.write(coupons)
-            }
+
             if (it.isEmpty()) {
                 tl.visibility = View.GONE
                 noCouponText.visibility = View.VISIBLE
@@ -82,6 +82,7 @@ class GetCouponFragment : Fragment() {
         _binding = null
     }
 
+    //ここでクーポン追加
     private fun addRow(tl: TableLayout, coupon: Coupon) {
         // 行用意
         val tr: TableRow = TableRow(requireContext())
@@ -183,4 +184,30 @@ class GetCouponFragment : Fragment() {
             button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.purple_500)
         }
     }
+
+    //書き出し
+    fun CouponSave(){
+        var date:String = ""
+        for(it in sharedGetCouponViewModel.coupons.value!!){
+            date += it.dateTime+",name"+",used"+it.isUsed+"\n"
+        }
+        context?.openFileOutput("coupon", AppCompatActivity.MODE_PRIVATE)?.bufferedWriter().use{
+        it!!.write(date)
+    }
+    fun CouponLoad(){
+        var date=""
+        try{
+            context?.openFileInput("coupon")?.bufferedReader()?.forEachLine{line ->
+                date+=line
+                var a=line.split(",")
+                sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner){it ->
+                    it.add(Coupon(a[0],a[1]))
+                }
+            }
+        }
+        catch (_:Exception){}
+    }
+    }
 }
+
+

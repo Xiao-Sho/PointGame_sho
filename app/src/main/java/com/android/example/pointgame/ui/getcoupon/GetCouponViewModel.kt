@@ -17,6 +17,7 @@ class GetCouponViewModel : ViewModel() {
     }
     //可変式配列　保持する変数
     var coupons: MutableLiveData<MutableList<Coupon>> = _coupons
+
 }
 //☆
 class Coupon(dateTime: String, name: String) {
@@ -24,3 +25,4 @@ class Coupon(dateTime: String, name: String) {
     val name: String = name
     var isUsed: Boolean = false
 }
+
