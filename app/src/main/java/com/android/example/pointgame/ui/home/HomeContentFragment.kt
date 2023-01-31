@@ -50,7 +50,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         // スワイプ位置によって背景画像を動的に変更する
         when (position) {
             0 -> {
-//                DataLoad()
+                DataLoad()
                 binding.fragmentHomeContentBackground.setImageResource(R.drawable.suica_stamp_rally_background)
                 binding.fragmentHomeContentTarget.setImageResource(R.drawable.suica_stamp_rally_train)
                 binding.fragmentHomeContentMidIcon.setImageResource(R.drawable.suica_stamp_rally_mid_icon)
@@ -64,7 +64,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
                 DataSave()
             }
             else -> {
-//                DataLoad2()
+                DataLoad2()
                 binding.fragmentHomeContentBackground.setImageResource(R.drawable.viewcard_stamp_rally_background)
                 binding.fragmentHomeContentTarget.setImageResource(R.drawable.viewcard_stamp_rally_user)
                 binding.fragmentHomeContentMidIcon.setImageResource(R.drawable.viewcard_stamp_rally_mid_icon)

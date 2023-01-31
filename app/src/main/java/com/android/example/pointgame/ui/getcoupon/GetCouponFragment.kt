@@ -28,7 +28,7 @@ class GetCouponFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var coupons = "null"
+   // private var coupons = "null"
     // 共有ビューモデル
     private val sharedGetCouponViewModel: GetCouponViewModel by activityViewModels()
 
@@ -59,6 +59,7 @@ class GetCouponFragment : Fragment() {
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
             // 獲得クーポンが何もない場合はテーブル自体を非表示、クーポンなし文言を表示
             // 獲得クーポンがある場合は、行追加を繰り返して表を作成
+            //ファイル読み込む　load
             requireContext().openFileOutput("coupondata", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
                it.write(coupons)
             }

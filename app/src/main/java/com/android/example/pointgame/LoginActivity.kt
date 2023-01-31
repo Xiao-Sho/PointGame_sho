@@ -1,9 +1,8 @@
 package com.android.example.pointgame
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.android.example.pointgame.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -11,6 +10,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val userList: List<User> = listOf(
         User("AABA1234", "1234", "東日本 太郎", "sample@sample.com"),
+        User("", "", "東日本 太郎", "sample@sample.com"),
         User("AABA1235", "1234", "東日本 次郎", "sample2@sample.com")
     )
 
