@@ -16,6 +16,7 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentGetCouponBinding
 import com.android.example.pointgame.util.dp
@@ -45,7 +46,7 @@ class GetCouponFragment : Fragment() {
         val root: View = binding.root
 
         //load
-
+        CouponSave()
         // タイトル
         val textView: TextView = binding.fragmentGetCouponTitle
         sharedGetCouponViewModel.text.observe(viewLifecycleOwner) {
@@ -185,13 +186,18 @@ class GetCouponFragment : Fragment() {
         }
     }
 
-    //書き出し
-    fun CouponSave(){
-        var date:String = ""
-        for(it in sharedGetCouponViewModel.coupons.value!!){
-            date += it.dateTime+",name"+",used"+it.isUsed+"\n"
-        }
-        context?.openFileOutput("coupon", AppCompatActivity.MODE_PRIVATE)?.bufferedWriter().use{
+
+
+//書き出し
+fun CouponSave(){
+    val sharedGetCouponViewModel =
+        ViewModelProvider(this)[GetCouponViewModel::class.java]
+
+    var date:String = ""
+    for(it in sharedGetCouponViewModel.coupons.value!!){
+        date += it.dateTime+",name"+",used"+it.isUsed+"\n"
+    }
+    context?.openFileOutput("coupon", AppCompatActivity.MODE_PRIVATE)?.bufferedWriter().use{
         it!!.write(date)
     }
     fun CouponLoad(){
@@ -207,7 +213,6 @@ class GetCouponFragment : Fragment() {
         }
         catch (_:Exception){}
     }
-    }
 }
 
-
+}
