@@ -2,7 +2,10 @@ package com.android.example.pointgame.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -246,8 +249,9 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         // 共有ビューモデルに獲得クーポンを追加
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
-                            it.add(Coupon(dt.format(formatter),"ジュース引き換え券"))
+                            it.add(Coupon(dt.format(formatter),"ジュース引き換え券",false))
                         }
+
                     }
                     1, 4 -> {
                         // イメージセット
@@ -257,7 +261,7 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         // 共有ビューモデルに獲得クーポンを追加
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
-                            it.add(Coupon(dt.format(formatter),"お菓子引き換え券"))
+                            it.add(Coupon(dt.format(formatter),"お菓子引き換え券",false))
                         }
                     }
                     2, 5 -> {
@@ -268,7 +272,7 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         // 共有ビューモデルに獲得クーポンを追加
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
-                            it.add(Coupon(dt.format(formatter),"キオスク割引券"))
+                            it.add(Coupon(dt.format(formatter),"キオスク割引券",false))
                         }
                     }
                     else -> {
@@ -280,7 +284,7 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         // 共有ビューモデルに獲得クーポンを追加
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
-                            it.add(Coupon(dt.format(formatter),"ジュース引き換え券"))
+                            it.add(Coupon(dt.format(formatter),"ジュース引き換え券",false))
                         }
                     }
                 }

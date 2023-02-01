@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.marginLeft
@@ -17,19 +16,24 @@ import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import com.android.example.pointgame.FileRW
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentGetCouponBinding
 import com.android.example.pointgame.util.dp
 import com.android.example.pointgame.util.sp
 import com.google.android.material.button.MaterialButton
+import java.io.File
+import java.util.*
 
 
 class GetCouponFragment : Fragment() {
     private var _binding: FragmentGetCouponBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-//    private var coupons = "null"
+
+    //    private var coupons = "null"
     // 共有ビューモデル
     private val sharedGetCouponViewModel: GetCouponViewModel by activityViewModels()
 
@@ -38,15 +42,14 @@ class GetCouponFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //val getCouponViewModel =
-        //    ViewModelProvider(this)[GetCouponViewModel::class.java]
 
         // バインディング
         _binding = FragmentGetCouponBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         //load
-        CouponSave()
+        CouponLoad()
+
         // タイトル
         val textView: TextView = binding.fragmentGetCouponTitle
         sharedGetCouponViewModel.text.observe(viewLifecycleOwner) {
@@ -62,13 +65,11 @@ class GetCouponFragment : Fragment() {
         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
             // 獲得クーポンが何もない場合はテーブル自体を非表示、クーポンなし文言を表示
             // 獲得クーポンがある場合は、行追加を繰り返して表を作成
-            //ファイル読み込む　load
 
             if (it.isEmpty()) {
                 tl.visibility = View.GONE
                 noCouponText.visibility = View.VISIBLE
-            }
-            else {
+            } else {
                 for (coupon in it) {
                     addRow(tl, coupon)
                 }
@@ -127,13 +128,20 @@ class GetCouponFragment : Fragment() {
         )
         couponTv.text = coupon.name
 
+
+
         // Button属性
         couponButton.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             30.dp
         ).apply {
             gravity = Gravity.CENTER
-            setMargins(couponButton.marginLeft, couponButton.marginTop, couponButton.marginRight, 4.dp)
+            setMargins(
+                couponButton.marginLeft,
+                couponButton.marginTop,
+                couponButton.marginRight,
+                4.dp
+            )
         }
         couponButton.width = 125.dp
         couponButton.background = ResourcesCompat.getDrawable(resources, R.drawable.border, null)
@@ -164,7 +172,10 @@ class GetCouponFragment : Fragment() {
                         })
                 builder.show()
             } ?: throw IllegalStateException("Activity cannot be null")
+
         }
+
+
 
         // 行追加
         ll.addView(couponTv)
@@ -172,47 +183,58 @@ class GetCouponFragment : Fragment() {
         tr.addView(dateTv)
         tr.addView(ll)
         tl.addView(tr)
+
+
     }
+
+
 
     private fun updateCouponButton(bool: Boolean, button: Button) {
         if (bool) {
             button.text = "使用済"
-            button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.red)
+            button.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.red)
             button.isEnabled = false
-        }
-        else {
+        } else {
             button.text = "クーポン使用"
-            button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.purple_500)
+            button.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.purple_500)
         }
     }
 
 
+    //書き出し
+    fun CouponSave() {
+        val sharedGetCouponViewModel =
+            ViewModelProvider(this)[GetCouponViewModel::class.java]
 
-//書き出し
-fun CouponSave(){
-    val sharedGetCouponViewModel =
-        ViewModelProvider(this)[GetCouponViewModel::class.java]
+        var data: String = ""
+        for (it in sharedGetCouponViewModel.coupons.value!!) {
+            data += it.dateTime + "," +it.name+ "," + it.isUsed + "\n"
+        }
+        FileRW().FileWrite(context, "coupon", data)
 
-    var date:String = ""
-    for(it in sharedGetCouponViewModel.coupons.value!!){
-        date += it.dateTime+",name"+",used"+it.isUsed+"\n"
     }
-    context?.openFileOutput("coupon", AppCompatActivity.MODE_PRIVATE)?.bufferedWriter().use{
-        it!!.write(date)
-    }
-    fun CouponLoad(){
-        var date=""
-        try{
-            context?.openFileInput("coupon")?.bufferedReader()?.forEachLine{line ->
-                date+=line
-                var a=line.split(",")
-                sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner){it ->
-                    it.add(Coupon(a[0],a[1]))
+
+    fun CouponLoad() {
+
+        try {
+            var data=FileRW().FileRead(context,"coupon")
+
+            val sc = Scanner(File(data))
+            while (sc.hasNextLine()) {
+                val line = sc.nextLine()
+                println(line)
+            }
+                context?.openFileInput("coupon")?.bufferedReader()?.forEachLine { line ->
+                var a = data.split(",")
+                sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) { it ->
+                    it.add(Coupon(a[0], a[1],a[2].toBoolean()))
                 }
             }
+        } catch (_: Exception) {
         }
-        catch (_:Exception){}
     }
-}
+
 
 }

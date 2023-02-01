@@ -8,7 +8,9 @@
         <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/activity_main.xml" value="0.12" />
         <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/fragment_get_coupon.xml" value="0.125" />
         <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/fragment_home_content.xml" value="0.16666666666666666" />
+        <entry key="..\:/JEIS/PointGame/app/src/main/res/layout/fragment_home_dice.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.1775" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.19021739130434784" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.19021739130434784" />
