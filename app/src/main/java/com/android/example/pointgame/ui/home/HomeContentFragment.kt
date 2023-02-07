@@ -128,7 +128,7 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         super.onDestroyView()
         _binding = null
     }
-
+//
     fun DataSave(){
 
         requireContext().openFileOutput("moneysum", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
