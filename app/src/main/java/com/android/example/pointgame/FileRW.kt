@@ -2,7 +2,6 @@ package com.android.example.pointgame
 
 import android.content.Context
 import java.io.File
-import java.nio.file.Files
 
 //ファイルの読み込み・書き出し処理をまとめたクラスです
 class FileRW {
@@ -52,8 +51,8 @@ class FileRW {
             }
             true
         } catch(e:Exception){
-            Files.createFile("","filename.txt")
-            return ""
+////            Files.createFile("","filename.txt")
+            return FileWrite(context,filename,"")
         }
     }
 
