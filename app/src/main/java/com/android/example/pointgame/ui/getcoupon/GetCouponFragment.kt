@@ -47,8 +47,11 @@ class GetCouponFragment : Fragment() {
         _binding = FragmentGetCouponBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        //Save
+        CouponSave()
+
         //load
-        CouponLoad()
+        //CouponLoad()
 
         // タイトル
         val textView: TextView = binding.fragmentGetCouponTitle
