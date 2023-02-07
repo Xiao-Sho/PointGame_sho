@@ -2,6 +2,7 @@ package com.android.example.pointgame
 
 import android.content.Context
 import java.io.File
+import java.nio.file.Files
 
 //ファイルの読み込み・書き出し処理をまとめたクラスです
 class FileRW {
@@ -13,11 +14,12 @@ class FileRW {
     //戻り値:ファイル内文章(string)※ファイルが存在しない場合は""(空文字)返却
     public fun FileRead(context:Context?,filename:String):String{
         try{
-            var data:String=context?.filesDir.toString()+"\\"+filename
+            var data:String
             data = File(context?.filesDir.toString()+"/"+filename).readText()
             return data
         }
         catch(e:Exception){
+            FileCreate(context,filename)
             return ""
         }
 
@@ -38,6 +40,7 @@ class FileRW {
     //第2引数:ファイル名(string)※拡張子要
     //第3引数:書き込む文字列(string)
     //戻り値:成功(true)/失敗(false)(boolean)※ファイルが存在しない場合も失敗
+
     public fun FileWrite(context: Context?, filename:String, data:String):Boolean{
         return try{
             val file=File(context?.filesDir,filename)
@@ -49,7 +52,8 @@ class FileRW {
             }
             true
         } catch(e:Exception){
-            false
+            Files.createFile("","filename.txt")
+            return ""
         }
     }
 
@@ -65,6 +69,7 @@ class FileRW {
     //第2引数:ファイル名(string)※拡張子要
     //第3引数:書き込む文字列(string)※省略可
     //戻り値:成功(true)/失敗(false)(boolean)
+
     public fun FileCreate(context:Context?,filename:String):Boolean{
         return FileWrite(context,filename,"")
     }

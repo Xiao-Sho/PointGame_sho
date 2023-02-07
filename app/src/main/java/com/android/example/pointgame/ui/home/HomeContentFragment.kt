@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.android.example.pointgame.FileRW
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentHomeContentBinding
 import com.android.example.pointgame.databinding.FragmentHomePagerBinding
-import java.io.File
 
 
 class HomeContentFragment(private val position: Int, private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
@@ -128,80 +127,113 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
         super.onDestroyView()
         _binding = null
     }
-//
-    fun DataSave(){
 
-        requireContext().openFileOutput("moneysum", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-            it.write(sum.toString())
-        }
-        requireContext().openFileOutput("position", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-            it.write(count.toString())
-        }
+
+    public fun DataSave(){
+        FileRW().FileWrite(context,"moneysum",sum.toString())
+        FileRW().FileWrite(context,"position",count.toString())
     }
+//    fun DataSave(){
+//
+//        requireContext().openFileOutput("moneysum", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+//            it.write(sum.toString())
+//        }
+//        requireContext().openFileOutput("position", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+//            it.write(count.toString())
+//        }
+//    }
 
     fun DataLoad(){
-
-        var data=""
-        val sumfile = File("/data/data/com.android.example.pointgame/files/moneysum")
-        if(sumfile.exists()) {
-            requireContext().openFileInput("moneysum").bufferedReader().forEachLine {
-                data += it
-            }
-            sum = data.toInt()
+        //var aaa:String = ""
+        FileRW().FileRead(context,"moneysum")
+        var value = FileRW().FileRead(context,"moneysum")
+        if(value !=""){
+            sum=FileRW().FileRead(context,"moneysum").toInt()
         }
-        else{
-            sum = 0
+        FileRW().FileRead(context,"position")
+        var value2 = FileRW().FileRead(context,"position")
+        if(value2 !=""){
+            count=FileRW().FileRead(context,"position").toInt()
         }
-        data=""
-        val posfile = File("/data/data/com.android.example.pointgame/files/position")
-        if(posfile.exists()){
-            requireContext().openFileInput("position").bufferedReader().forEachLine {
-                data += it
-            }
-            count = data.toInt()
-        }
-        else{
-            count=0
-        }
-
     }
+
+//    fun DataLoad(){
+//
+//        var data=""
+//        val sumfile = File("/data/data/com.android.example.pointgame/files/moneysum")
+//        if(sumfile.exists()) {
+//            requireContext().openFileInput("moneysum").bufferedReader().forEachLine {
+//                data += it
+//            }
+//            sum = data.toInt()
+//        }
+//        else{
+//            sum = 0
+//        }
+//        data=""
+//        val posfile = File("/data/data/com.android.example.pointgame/files/position")
+//        if(posfile.exists()){
+//            requireContext().openFileInput("position").bufferedReader().forEachLine {
+//                data += it
+//            }
+//            count = data.toInt()
+//        }
+//        else{
+//            count=0
+//        }
+//
+//    }
 
     fun DataSave2(){
-
-        requireContext().openFileOutput("moneysum2", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-            it.write(sum.toString())
-        }
-        requireContext().openFileOutput("position2", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
-            it.write(count.toString())
-        }
+        FileRW().FileWrite(context,"moneysum2",sum.toString())
+        FileRW().FileWrite(context,"position2",count.toString())
     }
+
+//    fun DataSave2(){
+//
+//        requireContext().openFileOutput("moneysum2", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+//            it.write(sum.toString())
+//        }
+//        requireContext().openFileOutput("position2", AppCompatActivity.MODE_PRIVATE).bufferedWriter().use{
+//            it.write(count.toString())
+//        }
+//    }
 
     fun DataLoad2(){
-
-        var data=""
-        val sumfile = File("/data/data/com.android.example.pointgame/files/moneysum2")
-        if(sumfile.exists()) {
-            requireContext().openFileInput("moneysum2").bufferedReader().forEachLine {
-                data += it
-            }
-            sum = data.toInt()
+        if(FileRW().FileRead(context,"moneysum2")!=""){
+            sum=FileRW().FileRead(context,"moneysum2").toInt()
         }
-        else{
-            sum = 0
+        if(FileRW().FileRead(context,"position2")!=""){
+            count=FileRW().FileRead(context,"position2").toInt()
         }
-        data=""
-        val posfile = File("/data/data/com.android.example.pointgame/files/position2")
-        if(posfile.exists()){
-            requireContext().openFileInput("position2").bufferedReader().forEachLine {
-                data += it
-            }
-            count = data.toInt()
-        }
-        else{
-            count=0
-        }
-
     }
+
+//    fun DataLoad2(){
+//
+//        var data=""
+//        val sumfile = File("/data/data/com.android.example.pointgame/files/moneysum2")
+//        if(sumfile.exists()) {
+//            requireContext().openFileInput("moneysum2").bufferedReader().forEachLine {
+//                data += it
+//            }
+//            sum = data.toInt()
+//        }
+//        else{
+//            sum = 0
+//        }
+//        data=""
+//        val posfile = File("/data/data/com.android.example.pointgame/files/position2")
+//        if(posfile.exists()){
+//            requireContext().openFileInput("position2").bufferedReader().forEachLine {
+//                data += it
+//            }
+//            count = data.toInt()
+//        }
+//        else{
+//            count=0
+//        }
+//
+//    }
 
 
     fun pointgametest(){
