@@ -51,8 +51,8 @@ class FileRW {
             }
             true
         } catch(e:Exception){
-////            Files.createFile("","filename.txt")
-            return FileWrite(context,filename,"")
+            FileCreate(context,filename,data)
+            return true
         }
     }
 
@@ -69,11 +69,23 @@ class FileRW {
     //第3引数:書き込む文字列(string)※省略可
     //戻り値:成功(true)/失敗(false)(boolean)
 
-    public fun FileCreate(context:Context?,filename:String):Boolean{
-        return FileWrite(context,filename,"")
+    public fun FileCreate(context:Context?,filename:String) {
+        FileCreate(context,filename,"")
     }
     public fun FileCreate(context:Context?,filename:String,data:String):Boolean{
-        return FileWrite(context,filename,"")
+        try{
+            val file=File(context?.filesDir,filename)
+
+           if(file.exists())throw Exception()
+
+            file.writer().use{
+                it.write(data)
+            }
+            return true
+        }
+        catch(e:Exception){
+            return false
+        }
     }
 
     //サンプル

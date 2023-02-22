@@ -22,7 +22,6 @@ import com.android.example.pointgame.databinding.FragmentGetCouponBinding
 import com.android.example.pointgame.util.dp
 import com.android.example.pointgame.util.sp
 import com.google.android.material.button.MaterialButton
-import java.io.File
 import java.util.*
 
 
@@ -48,8 +47,8 @@ class GetCouponFragment : Fragment() {
         val root: View = binding.root
 
         //Save
-        CouponSave()
-
+        CouponLoad()
+//        CouponSave()
         //load
         //CouponLoad()
 
@@ -167,6 +166,7 @@ class GetCouponFragment : Fragment() {
                             sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                                 coupon.isUsed = true
                                 updateCouponButton(coupon.isUsed, couponButton)
+                                CouponSave()
                             }
                         })
                     .setNegativeButton("キャンセル",
@@ -219,25 +219,56 @@ class GetCouponFragment : Fragment() {
 
     }
 
-    fun CouponLoad() {
+//    fun CouponLoad() {
+//
+//        try {
+//            val file = File("/data/data/com.android.example.pointgame/files/coupon")
+//            var data=FileRW().FileRead(context,"coupon")
+//            var sc = Scanner(file)
+////            var sc = Scanner(File(data))
+//
+//            while (sc.hasNextLine()) {
+//                val line = sc.nextLine()
+//                println(line)
+//            }
+//                context?.openFileInput("coupon")?.bufferedReader()?.forEachLine { line ->
+//                var a = data.split(",")
+//                sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) { it ->
+//                    it.add(Coupon(a[0], a[1],a[2].toBoolean()))
+//                }
+//            }
+////            while (sc.hasNextLine()) {
+////                var str = sc.next()
+////                val line = sc.nextLine()
+////
+////                var a = line.split(",")
+////                sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) { it ->
+////                    it.add(Coupon(a[0], a[1], a[2].toBoolean()))
+////                }
+////        }
+//        }
+//        catch (_: Exception) {
+//        }
+//    }
+fun CouponLoad() {
 
-        try {
-            var data=FileRW().FileRead(context,"coupon")
+    try {
+        var data = FileRW().FileRead(context, "coupon")
 
-            val sc = Scanner(File(data))
-            while (sc.hasNextLine()) {
-                val line = sc.nextLine()
-                println(line)
+        val sc = Scanner(data)
+        while (sc.hasNextLine()) {
+            var str = sc.next()
+            val line = sc.nextLine()
+
+            var a = line.split(",")
+            sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) { it ->
+                it.add(Coupon(a[0], a[1], a[2].toBoolean()))
             }
-                context?.openFileInput("coupon")?.bufferedReader()?.forEachLine { line ->
-                var a = data.split(",")
-                sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) { it ->
-                    it.add(Coupon(a[0], a[1],a[2].toBoolean()))
-                }
-            }
-        } catch (_: Exception) {
+
         }
-    }
 
+    } catch (_: Exception) {
+    }
+}
 
 }

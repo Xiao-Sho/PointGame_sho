@@ -130,8 +130,8 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 
 
     public fun DataSave(){
-        FileRW().FileWrite(context,"moneysum",sum.toString())
-        FileRW().FileWrite(context,"position",count.toString())
+        FileRW().FileWrite(context,"moneysum.txt",sum.toString())
+        FileRW().FileWrite(context,"position.txt",count.toString())
     }
 //    fun DataSave(){
 //
@@ -145,15 +145,15 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 
     fun DataLoad(){
         //var aaa:String = ""
-        FileRW().FileRead(context,"moneysum")
-        var value = FileRW().FileRead(context,"moneysum")
+        FileRW().FileRead(context,"moneysum.txt")
+        var value = FileRW().FileRead(context,"moneysum.txt")
         if(value !=""){
-            sum=FileRW().FileRead(context,"moneysum").toInt()
+            sum=FileRW().FileRead(context,"moneysum.txt").toInt()
         }
         FileRW().FileRead(context,"position")
-        var value2 = FileRW().FileRead(context,"position")
+        var value2 = FileRW().FileRead(context,"position.txt")
         if(value2 !=""){
-            count=FileRW().FileRead(context,"position").toInt()
+            count=FileRW().FileRead(context,"position.txt").toInt()
         }
     }
 
@@ -185,8 +185,8 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 //    }
 
     fun DataSave2(){
-        FileRW().FileWrite(context,"moneysum2",sum.toString())
-        FileRW().FileWrite(context,"position2",count.toString())
+        FileRW().FileWrite(context,"moneysum2.txt",sum.toString())
+        FileRW().FileWrite(context,"position2.txt",count.toString())
     }
 
 //    fun DataSave2(){
@@ -200,11 +200,11 @@ class HomeContentFragment(private val position: Int, private val pagerBinding: F
 //    }
 
     fun DataLoad2(){
-        if(FileRW().FileRead(context,"moneysum2")!=""){
-            sum=FileRW().FileRead(context,"moneysum2").toInt()
+        if(FileRW().FileRead(context,"moneysum2.txt")!=""){
+            sum=FileRW().FileRead(context,"moneysum2.txt").toInt()
         }
-        if(FileRW().FileRead(context,"position2")!=""){
-            count=FileRW().FileRead(context,"position2").toInt()
+        if(FileRW().FileRead(context,"position2.txt")!=""){
+            count=FileRW().FileRead(context,"position2.txt").toInt()
         }
     }
 

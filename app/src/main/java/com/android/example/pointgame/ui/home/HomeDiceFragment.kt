@@ -19,6 +19,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
+import com.android.example.pointgame.FileRW
 import com.android.example.pointgame.R
 import com.android.example.pointgame.databinding.FragmentHomeDiceBinding
 import com.android.example.pointgame.databinding.FragmentHomePagerBinding
@@ -26,6 +27,7 @@ import com.android.example.pointgame.ui.getcoupon.Coupon
 import com.android.example.pointgame.ui.getcoupon.GetCouponViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fragment() {
@@ -239,7 +241,8 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
 
                 //サイコロの状態は0~5でランダム設定。ここで確定する
                 num = (0..5).random()
-
+               CouponLoad()
+                CouponSave()
                 when (num) {
                     0, 3 -> {
                         // イメージセット
@@ -250,6 +253,8 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
                             it.add(Coupon(dt.format(formatter),"ジュース引き換え券",false))
+                            CouponSave()
+
                         }
 
                     }
@@ -262,6 +267,7 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
                             it.add(Coupon(dt.format(formatter),"お菓子引き換え券",false))
+                            CouponSave()
                         }
                     }
                     2, 5 -> {
@@ -269,10 +275,12 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
                         binding.fragmentHomeDiceGetCouponMessageImageView.setImageDrawable(
                             ResourcesCompat.getDrawable(resources, R.drawable.get_coupon_message_3, null)
                         )
+                        CouponLoad()
                         // 共有ビューモデルに獲得クーポンを追加
                         sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
                             val dt = LocalDateTime.now()
                             it.add(Coupon(dt.format(formatter),"キオスク割引券",false))
+                            CouponSave()
                         }
                     }
                     else -> {
@@ -355,5 +363,40 @@ class HomeDiceFragment(private val pagerBinding: FragmentHomePagerBinding) : Fra
             //paint.color = Color.argb(255, 255, 0, 0)
             //canvas.drawRect(0f, posY, width*1f, posY, paint)
         }
+
     }
-}
+    fun CouponSave() {
+//        val sharedGetCouponViewModel =
+//            ViewModelProvider(viewLifecycleOwner)[GetCouponViewModel::class.java]
+        sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) {
+            var data: String = ""
+            for (it in sharedGetCouponViewModel.coupons.value!!) {
+                data += it.dateTime + "," + it.name + "," + it.isUsed + "\n"
+            }
+//            data += "2023/02/16 10:20:06,ジュース引き換え券,false"+"\n"+"2023/02/16 10:20:06,ジュース引き換え券,false"+"\n"
+
+            FileRW().FileWrite(context, "coupon", data)
+
+        }
+    }
+        fun CouponLoad() {
+
+            try {
+                var data = FileRW().FileRead(context, "coupon")
+
+                val sc = Scanner(data)
+                while (sc.hasNextLine()) {
+                    var str = sc.next()
+                    val line = sc.nextLine()
+
+                    var a = line.split(",")
+                    sharedGetCouponViewModel.coupons.observe(viewLifecycleOwner) { it ->
+                        it.add(Coupon(a[0], a[1], a[2].toBoolean()))
+                    }
+
+                }
+
+            } catch (_: Exception) {
+            }
+        }
+    }
